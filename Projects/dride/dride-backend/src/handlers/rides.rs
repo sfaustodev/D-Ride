@@ -7,8 +7,10 @@ use uuid::Uuid;
 use crate::auth::middleware::AuthUser;
 use crate::error::AppError;
 use crate::models::ride::{self, CancelRequest, CreateRideRequest, DepositConfirmRequest, EstimateRequest, RideResponse, RideStatus};
+use crate::models::ride_event;
 use crate::services::pricing;
 use crate::services::sol_rate;
+use crate::ws::messages::*;
 use crate::AppState;
 
 // ── POST /rides/estimate ────────────────────────────────────────────
@@ -205,6 +207,18 @@ pub async fn accept(
         .await?
         .ok_or_else(|| AppError::NotFound("Passenger not found".into()))?;
 
+    // Log event
+    let _ = ride_event::create(&state.pool, ride_id, "accepted", Some(auth.claims.sub), None).await;
+
+    // Notify passenger via WebSocket
+    let driver = crate::models::user::find_by_id(&state.pool, auth.claims.sub).await?.unwrap();
+    let event = RideAcceptedEvent {
+        ride_id,
+        driver_name: driver.name,
+        driver_rating: driver.rating_avg,
+    };
+    state.hub.send_to_user(&db_ride.passenger_id, &WsMessage::new("ride_accepted", &event)).await;
+
     Ok(Json(AcceptResponse {
         ride: RideResponse::from(updated),
         passenger: PassengerInfo {
@@ -242,6 +256,15 @@ pub async fn start(
     }
 
     let updated = ride::start(&state.pool, ride_id).await?;
+
+    // Log event + notify passenger
+    let _ = ride_event::create(&state.pool, ride_id, "started", Some(auth.claims.sub), None).await;
+    let event = RideStartedEvent {
+        ride_id,
+        started_at: updated.started_at.map(|t| t.to_rfc3339()).unwrap_or_default(),
+    };
+    state.hub.send_to_user(&db_ride.passenger_id, &WsMessage::new("ride_started", &event)).await;
+
     Ok(Json(RideResponse::from(updated)))
 }
 
@@ -271,6 +294,19 @@ pub async fn complete(
     let release_tx_sig = "placeholder_release_tx";
 
     let updated = ride::complete(&state.pool, ride_id, release_tx_sig).await?;
+
+    // Log event + notify both parties
+    let _ = ride_event::create(&state.pool, ride_id, "completed", Some(auth.claims.sub), None).await;
+    let event = RideCompletedEvent {
+        ride_id,
+        release_tx_sig: Some(release_tx_sig.to_string()),
+    };
+    let msg = WsMessage::new("ride_completed", &event);
+    state.hub.send_to_user(&db_ride.passenger_id, &msg).await;
+    if let Some(driver_id) = db_ride.driver_id {
+        state.hub.send_to_user(&driver_id, &msg).await;
+    }
+
     Ok(Json(RideResponse::from(updated)))
 }
 
@@ -302,6 +338,19 @@ pub async fn cancel_ride(
     // TODO: trigger on-chain escrow refund if deposit exists
 
     let updated = ride::cancel(&state.pool, ride_id, cancelled_by).await?;
+
+    // Log event + notify both parties
+    let _ = ride_event::create(&state.pool, ride_id, "cancelled", Some(auth.claims.sub), None).await;
+    let event = RideCancelledEvent {
+        ride_id,
+        cancelled_by: cancelled_by.to_string(),
+    };
+    let msg = WsMessage::new("ride_cancelled", &event);
+    state.hub.send_to_user(&db_ride.passenger_id, &msg).await;
+    if let Some(driver_id) = db_ride.driver_id {
+        state.hub.send_to_user(&driver_id, &msg).await;
+    }
+
     Ok(Json(RideResponse::from(updated)))
 }
 
