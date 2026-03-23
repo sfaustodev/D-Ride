@@ -1,6 +1,7 @@
 services:
   postgres:
     image: postgres:16-alpine
+    platform: linux/arm64
     environment:
       POSTGRES_USER: dride
       POSTGRES_PASSWORD: password
@@ -12,6 +13,7 @@ services:
 
   redis:
     image: redis:7-alpine
+    platform: linux/arm64
     ports:
       - "6379:6379"
 
