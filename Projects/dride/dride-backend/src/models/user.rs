@@ -120,7 +120,7 @@ pub async fn soft_delete(pool: &sqlx::PgPool, id: Uuid) -> Result<(), sqlx::Erro
     sqlx::query(
         r#"
         UPDATE users SET
-            phone = CONCAT('deleted_', id::text),
+            phone = CONCAT('del_', LEFT(id::text, 14)),
             name = 'Deleted User',
             email = NULL,
             avatar_url = NULL,
