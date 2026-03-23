@@ -7,6 +7,7 @@ use dride_backend::auth::jwt::create_token;
 use dride_backend::auth::middleware::auth_middleware;
 use dride_backend::config::AppConfig;
 use dride_backend::handlers;
+use dride_backend::ws::hub::Hub;
 use dride_backend::AppState;
 
 pub async fn create_test_app() -> Router {
@@ -31,6 +32,7 @@ pub async fn create_test_app_with_state() -> (Router, AppState) {
         pool,
         redis,
         config: config.clone(),
+        hub: Hub::new(),
     };
 
     let public_routes = Router::new()

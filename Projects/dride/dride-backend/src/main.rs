@@ -7,7 +7,8 @@ use tracing_subscriber::EnvFilter;
 
 use dride_backend::auth::middleware::auth_middleware;
 use dride_backend::config::AppConfig;
-use dride_backend::{db, handlers, AppState};
+use dride_backend::ws::hub::Hub;
+use dride_backend::{db, handlers, jobs, AppState};
 
 #[tokio::main]
 async fn main() {
@@ -31,11 +32,17 @@ async fn main() {
     let redis = redis::Client::open(config.redis_url.clone())
         .expect("Failed to create Redis client");
 
+    let hub = Hub::new();
+
     let state = AppState {
         pool,
         redis,
         config: config.clone(),
+        hub,
     };
+
+    // Spawn background jobs
+    jobs::spawn_jobs(state.clone());
 
     // Public routes (no auth required)
     let public_routes = Router::new()
@@ -63,8 +70,12 @@ async fn main() {
         .route("/rides/{id}/rate", post(handlers::ratings::rate_ride))
         .layer(middleware::from_fn(auth_middleware));
 
+    // WebSocket route (auth via query param)
+    let ws_route = Router::new()
+        .route("/ws", get(dride_backend::ws::handler::ws_upgrade));
+
     let app = Router::new()
-        .nest("/v1", public_routes.merge(protected_routes))
+        .nest("/v1", public_routes.merge(protected_routes).merge(ws_route))
         .route("/health", get(|| async { "ok" }))
         .layer(axum::Extension(config.jwt_secret.clone()))
         .layer(TraceLayer::new_for_http())
