@@ -44,9 +44,23 @@ async fn main() {
 
     // Protected routes (auth required)
     let protected_routes = Router::new()
+        // Users
         .route("/users/me", get(handlers::users::get_me))
         .route("/users/me", patch(handlers::users::update_me))
         .route("/users/me", delete(handlers::users::delete_me))
+        // Rides
+        .route("/rides/estimate", post(handlers::rides::estimate))
+        .route("/rides", post(handlers::rides::create_ride))
+        .route("/rides/available", get(handlers::rides::available))
+        .route("/rides/history", get(handlers::rides::history))
+        .route("/rides/{id}", get(handlers::rides::get_ride))
+        .route("/rides/{id}/deposit-confirm", post(handlers::rides::deposit_confirm))
+        .route("/rides/{id}/accept", post(handlers::rides::accept))
+        .route("/rides/{id}/start", post(handlers::rides::start))
+        .route("/rides/{id}/complete", post(handlers::rides::complete))
+        .route("/rides/{id}/cancel", post(handlers::rides::cancel_ride))
+        // Ratings
+        .route("/rides/{id}/rate", post(handlers::ratings::rate_ride))
         .layer(middleware::from_fn(auth_middleware));
 
     let app = Router::new()
