@@ -57,7 +57,7 @@ async fn test_verify_otp_creates_user() {
     let (app, state) = create_test_app_with_state().await;
 
     // First, request OTP to store it in Redis
-    let phone = "+5573999009999";
+    let phone = format!("+55739990{:05}", rand::random::<u32>() % 100_000);
     let _ = app
         .clone()
         .oneshot(
