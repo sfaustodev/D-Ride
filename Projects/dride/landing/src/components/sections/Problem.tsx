@@ -10,7 +10,7 @@ const uberFeeBar = 40 // 40% out of R$20 is R$8 (42% average)
 export default function Problem() {
   return (
     <SectionWrapper id="problem" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-20">
+      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Text */}
           <motion.div
