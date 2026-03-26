@@ -1,0 +1,257 @@
+{
+  "Metadata": {
+    "title": "dRide — Uber descentralizado | Motorista fica com 90%",
+    "description": "O primeiro app de corrida descentralizado do Brasil. Pagamentos transparentes na Solana. Taxa fixa de 10%. Motorista fica com 90%.",
+    "keywords": "uber descentralizado, ride sharing crypto, solana, dride, corrida blockchain",
+    "ogTitle": "dRide — Corrida sem intermediário",
+    "ogDescription": "Motorista fica com 90%. Smart contract na Solana.",
+    "twitterTitle": "dRide — Uber descentralizado",
+    "twitterDescription": "Taxa de 10% transparente on-chain. Motorista fica com 90%."
+  },
+  "Navbar": {
+    "howItWorks": "Como funciona",
+    "tokenomics": "Tokenomics",
+    "roadmap": "Roadmap",
+    "faq": "FAQ"
+  },
+  "Hero": {
+    "presaleLive": "Presale ao vivo",
+    "sold": "vendido",
+    "headline1": "Corrida sem intermediário.",
+    "headline2": "Motorista fica com {percentage}%.",
+    "subheadline": "O primeiro app de corrida descentralizado do Brasil.",
+    "subheadline2": "Pagamentos transparentes na Solana. Taxa fixa de 10%.",
+    "ctaBuy": "Comprar $DRIDE",
+    "ctaHow": "Como funciona",
+    "statCostLabel": "Solana",
+    "statCostSuffix": " custo/tx",
+    "statDriverLabel": "pro motorista",
+    "statTxLabel": "transação Solana"
+  },
+  "Problem": {
+    "badge": "O PROBLEMA",
+    "title": "O Uber fica com 40% da sua corrida.",
+    "description": "Em 2024, a taxa média do Uber chegou a 42%.\nDe uma corrida de R$20, o motorista leva R$12.\nO resto paga escritórios em 70 países, 34 mil\nfuncionários, advogados, e lucro de acionistas.\nVocê paga mais. O motorista ganha menos.",
+    "statValue": "42%",
+    "statLabel": "taxa média do Uber em 2024",
+    "statSource": "Fonte: NELP / Gridwise Analytics",
+    "barTitle": "De cada R$20 que você paga...",
+    "uberKeeps": "Uber fica",
+    "uberAmount": "R$8 (40%)",
+    "driverLabel": "Motorista",
+    "driverAmount": "R$12 (60%)",
+    "annualNote": "Anualmente, um motorista que faz 200 corridas/mês",
+    "annualHighlight": "deixa R$19.200 no Uber",
+    "annualEnd": "que poderia receber como pagamento direto."
+  },
+  "Solution": {
+    "badge": "A SOLUÇÃO",
+    "title1": "Smart contract.",
+    "title2": "Sem empresa no meio.",
+    "description": "O dRide usa um contrato inteligente na Solana como escrow. O passageiro deposita, o motorista completa a corrida, o código libera automaticamente: {driverPct}% pro motorista, {protocolPct}% pro protocolo.",
+    "description2": "Sem escritórios. Sem milhares de funcionários. Sem algoritmo secreto decidindo quanto você ganha. Código aberto. Auditável por qualquer pessoa.",
+    "barTitle": "No dRide, mesma corrida de R$20...",
+    "protocolLabel": "Protocolo",
+    "protocolAmount": "R$2 (10%)",
+    "driverLabel": "Motorista",
+    "driverAmount": "R$18 (90%)",
+    "highlight": "+R$6 a mais pro motorista por corrida",
+    "feature1Title": "Escrow on-chain",
+    "feature1Desc": "Dinheiro trancado no smart contract",
+    "feature2Title": "Solana",
+    "feature3Title": "Transparente",
+    "feature3Desc": "Taxa de 10% fixa, visível na blockchain"
+  },
+  "Comparison": {
+    "badge": "COMPARAÇÃO",
+    "title": "Números que falam sozinhos.",
+    "tableMetric": "Métrica",
+    "metrics": {
+      "0": { "metric": "Taxa da plataforma", "uber": "~42%", "dride": "10%" },
+      "1": { "metric": "Motorista recebe (R$20)", "uber": "R$12", "dride": "R$18" },
+      "2": { "metric": "Custo por transação", "uber": "R$0.50", "dride": "R$0.02" },
+      "3": { "metric": "Transparência da taxa", "uber": "❌ Secreta", "dride": "✅ On-chain" },
+      "4": { "metric": "Quem decide o preço", "uber": "Algoritmo IA", "dride": "Fórmula fixa" },
+      "5": { "metric": "Tempo de pagamento", "uber": "1 semana", "dride": "Instantâneo" },
+      "6": { "metric": "Código auditável", "uber": "❌ Fechado", "dride": "✅ Aberto" },
+      "7": { "metric": "Escritórios", "uber": "70 países", "dride": "0" },
+      "8": { "metric": "Funcionários", "uber": "34.000", "dride": "Smart contract" }
+    },
+    "ctaText": "O motorista que faz 200 corridas/mês ganha",
+    "onUber": "No Uber",
+    "onDride": "No dRide",
+    "uberEarnings": "R$12.000",
+    "drideEarnings": "R$18.000"
+  },
+  "HowItWorks": {
+    "badge": "COMO FUNCIONA",
+    "title": "4 passos. Zero burocracia.",
+    "step1Title": "Pedir",
+    "step1Desc": "Escolha destino no mapa",
+    "step2Title": "Depositar",
+    "step2Desc": "SOL vai pro escrow",
+    "step3Title": "Corrida",
+    "step3Desc": "Tracking ao vivo no mapa",
+    "step4Title": "Receber",
+    "step4Desc": "Escrow libera 90%→motorista"
+  },
+  "Tokenomics": {
+    "badge": "TOKENOMICS",
+    "title": "Token $DRIDE — Governança + Utilidade",
+    "supplyLabel": "Supply total:",
+    "supplyValue": "1.000.000.000 $DRIDE",
+    "allocation": {
+      "0": "300M tokens. Preço presale: $0.005. Unlock: 20% no TGE, 80% linear em 6 meses.",
+      "1": "250M tokens. Incentivos pra motoristas e passageiros. Desconto na taxa usando $DRIDE.",
+      "2": "200M tokens. 1 ano cliff, 4 anos vesting linear. Comprometimento de longo prazo.",
+      "3": "150M tokens. Locked em DEX (Raydium/Orca). Garante liquidez desde o dia 1.",
+      "4": "100M tokens. Controlado por multisig (Squads). Pra partnerships, grants, e emergências."
+    },
+    "utilityTitle": "O que $DRIDE faz?",
+    "utility1": "Pagar corrida com $DRIDE = {discount}% de desconto na taxa (10% → 5%)",
+    "utility2": "Staking: motoristas stakam pra ter prioridade no matching",
+    "utility3": "Governance: votar em mudanças de taxa, novas features, novas cidades",
+    "utility4": "Revenue share: holders recebem % da receita do protocolo (v1.0)"
+  },
+  "Presale": {
+    "badge": "PRESALE AO VIVO",
+    "timeRemaining": "Tempo restante",
+    "currentPrice": "Preço atual",
+    "nextPrice": "próximo: R${price}",
+    "youWillReceive": "Você receberá",
+    "feeIncluded": "$DRIDE (taxa inclusa)",
+    "solAmount": "Quantidade SOL",
+    "totalSol": "Total SOL",
+    "priceSol": "Preço SOL",
+    "totalCost": "Custo total",
+    "buyButton": "Comprar {amount} $DRIDE",
+    "connectWallet": "Conectar Wallet",
+    "walletWarning": "Você precisa conectar sua carteira Solana para participar da presale. A compra será feita diretamente da sua wallet.",
+    "auditedEscrow": "Escrow auditado",
+    "noIntermediary": "Sem intermediário",
+    "openContract": "Contrato aberto",
+    "metamaskNote": "Prefere MetaMask?",
+    "ethOption": "Opção ETH",
+    "willBeAvailable": "também estará disponível."
+  },
+  "Roadmap": {
+    "badge": "ROADMAP",
+    "title": "O futuro do dRide.",
+    "statusUpcoming": "Em breve",
+    "statusCompleted": "Concluído",
+    "phases": {
+      "0": {
+        "title": "Fase 1-4: Backend + Smart Contract + WebSocket",
+        "items": [
+          "Servidor Rust (Axum + PostgreSQL)",
+          "Escrow Solana deployado na Devnet",
+          "API completa de corridas",
+          "WebSocket tracking ao vivo"
+        ]
+      },
+      "1": {
+        "title": "Fase 5-6: App iOS Completo",
+        "items": [
+          "App iOS passageiro + motorista",
+          "Integração com Phantom wallet",
+          "TestFlight beta em Porto Seguro"
+        ]
+      },
+      "2": {
+        "title": "Fase 7: Lançamento",
+        "items": [
+          "App Store (iOS)",
+          "Solana Mainnet",
+          "$DRIDE Token Generation Event (TGE)"
+        ]
+      },
+      "3": {
+        "title": "v0.2: Expansão",
+        "items": [
+          "PIX on-ramp (pagar com Pix)",
+          "App Android",
+          "Novas cidades no Brasil"
+        ]
+      },
+      "4": {
+        "title": "v1.0: Protocolo Aberto",
+        "items": [
+          "DAO governance com $DRIDE",
+          "Open-source",
+          "Multi-chain (Solana + Base)"
+        ]
+      }
+    }
+  },
+  "Team": {
+    "badge": "TEAM",
+    "title": "Quem está construindo.",
+    "founder": "Fundador",
+    "future": "Futuro",
+    "joinTitle": "Quer fazer parte do time?",
+    "joinDesc": "Estamos sempre procurando talentos excepcionais que compartilham da nossa visão de um mundo descentralizado.",
+    "joinCta": "Entre em contato"
+  },
+  "FAQ": {
+    "badge": "FAQ",
+    "title": "Perguntas frequentes.",
+    "items": {
+      "0": {
+        "question": "O que é o dRide?",
+        "answer": "Um app de corrida como o Uber, mas descentralizado. Em vez de uma empresa ficar com 40% da corrida, um smart contract na Solana distribui automaticamente: 90% pro motorista, 10% pro protocolo. Sem intermediário, sem algoritmo secreto."
+      },
+      "1": {
+        "question": "O que é o token $DRIDE?",
+        "answer": "É o token de governança e utilidade do protocolo. Holders podem votar em mudanças, receber revenue share, e pagar corridas com desconto. O token tem vesting de 4 anos pra equipe, mostrando comprometimento de longo prazo."
+      },
+      "2": {
+        "question": "Preciso ter crypto pra usar o app?",
+        "answer": "No MVP sim, você paga em SOL. Na versão 0.2, vamos integrar PIX on-ramp: você paga com Pix e o app converte automaticamente pra SOL."
+      },
+      "3": {
+        "question": "Como o smart contract garante que é seguro?",
+        "answer": "O contrato de escrow é auditado e o código é aberto. Os fundos ficam trancados num PDA (Program Derived Address) que só pode ser liberado quando a corrida completa ou é cancelada. Ninguém — nem nós — consegue mexer no dinheiro fora dessas regras."
+      },
+      "4": {
+        "question": "Quando o app vai estar disponível?",
+        "answer": "Beta no TestFlight no Q3 2026, lançamento no App Store no Q4 2026. Primeiro em Porto Seguro, BA, depois expandindo pra outras cidades."
+      },
+      "5": {
+        "question": "Como faço pra ser motorista?",
+        "answer": "Baixe o app, crie sua conta, e ative o modo motorista. Cadastre seu veículo (marca, modelo, placa) e comece a aceitar corridas. Sem burocracia, sem aprovação de empresa."
+      },
+      "6": {
+        "question": "O que é um smart contract?",
+        "answer": "Um smart contract é como um contrato automático. Imagina um juiz que nunca mente e sempre segue a regra. Quando o passageiro paga, o smart contract armazena o dinheiro. Quando a corrida termina, ele libera automaticamente 90% pra o motorista. Ninguém consegue mudar as regras ou roubar o dinheiro — é tudo transparente na blockchain."
+      },
+      "7": {
+        "question": "O que é um escrow contract?",
+        "answer": "Um escrow contract é como deixar dinheiro com um cofre seguro de um terceiro confiável. No dRide, quando você solicita uma corrida, o dinheiro entra em um \"escrow\": fica trancado, seguro, até a corrida terminar. Se terminar bem, o motorista recebe. Se cancelar, você recebe de volta. É a maneira mais segura de pagar sem confiar em uma empresa — você confia no código."
+      }
+    },
+    "stillQuestions": "Ainda tem dúvidas?",
+    "joinCommunity": "Entre na comunidade"
+  },
+  "Footer": {
+    "tagline": "Corrida sem intermediário.",
+    "product": "Produto",
+    "community": "Comunidade",
+    "legal": "Legal",
+    "howItWorks": "Como funciona",
+    "tokenomics": "Tokenomics",
+    "roadmap": "Roadmap",
+    "whitepaper": "Whitepaper",
+    "termsOfUse": "Termos de uso",
+    "privacyPolicy": "Política de privacidade",
+    "investmentDisclaimer": "Disclaimer de investimento",
+    "builtIn": "Construído em Porto Seguro, BA",
+    "builtOn": "Built on",
+    "disclaimer": "$DRIDE é um token de utilidade para uso dentro do protocolo dRide. A compra de $DRIDE não constitui investimento em valores mobiliários. Não há garantia de retorno financeiro. O projeto está em fase de desenvolvimento e está sujeito a riscos técnicos e regulatórios. Faça sua própria pesquisa (DYOR) antes de participar. Este site não constitui conselho financeiro ou de investimento."
+  },
+  "LanguageSwitcher": {
+    "en": "EN",
+    "pt": "PT",
+    "esp": "ESP",
+    "comingSoon": "Em breve"
+  }
+}
