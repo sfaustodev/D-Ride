@@ -43,7 +43,7 @@ export default function Presale() {
 
   return (
     <SectionWrapper id="presale" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         <div className="text-center mb-16">
           <Badge variant="purple" animated className="mb-4">
             🚀 PRESALE AO VIVO
