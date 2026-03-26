@@ -4,10 +4,11 @@ import { motion } from 'framer-motion'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-
-const uberFeeBar = 40 // 40% out of R$20 is R$8 (42% average)
+import { useTranslations } from 'next-intl'
 
 export default function Problem() {
+  const t = useTranslations('Problem')
+
   return (
     <SectionWrapper id="problem" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
@@ -19,29 +20,25 @@ export default function Problem() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Badge variant="red" className="mb-4">O PROBLEMA</Badge>
+            <Badge variant="red" className="mb-4">{t('badge')}</Badge>
             <h2 className="text-4xl lg:text-[48px] font-bold mb-6 leading-tight">
-              O Uber fica com 40% da sua corrida.
+              {t('title')}
             </h2>
-            <p className="text-text-secondary text-lg mb-8 leading-relaxed">
-              Em 2024, a taxa média do Uber chegou a 42%.<br />
-              De uma corrida de R$20, o motorista leva R$12.<br />
-              O resto paga escritórios em 70 países, 34 mil<br />
-              funcionários, advogados, e lucro de acionistas.<br />
-              Você paga mais. O motorista ganha menos.
+            <p className="text-text-secondary text-lg mb-8 leading-relaxed whitespace-pre-line">
+              {t('description')}
             </p>
 
             {/* Stat highlight */}
             <Card variant="glass" className="border-accent-red/30 bg-accent-red/5">
               <div className="p-6 text-center">
                 <div className="text-3xl font-bold text-accent-red mb-2 mono">
-                  42%
+                  {t('statValue')}
                 </div>
                 <div className="text-text-secondary text-sm">
-                  taxa média do Uber em 2024
+                  {t('statLabel')}
                 </div>
                 <div className="text-text-tertiary text-xs mt-2">
-                  Fonte: NELP / Gridwise Analytics
+                  {t('statSource')}
                 </div>
               </div>
             </Card>
@@ -55,14 +52,14 @@ export default function Problem() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-6"
           >
-            <h3 className="text-text-secondary text-lg text-center">De cada R$20 que você paga...</h3>
+            <h3 className="text-text-secondary text-lg text-center">{t('barTitle')}</h3>
 
             <div className="space-y-4">
               {/* Uber fee bar */}
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-accent-red font-medium">Uber fica</span>
-                  <span className="text-accent-red font-bold mono">R$8 (40%)</span>
+                  <span className="text-accent-red font-medium">{t('uberKeeps')}</span>
+                  <span className="text-accent-red font-bold mono">{t('uberAmount')}</span>
                 </div>
                 <div className="h-8 bg-bg-tertiary rounded-lg overflow-hidden">
                   <motion.div
@@ -78,8 +75,8 @@ export default function Problem() {
               {/* Driver earnings bar */}
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-text-secondary">Motorista</span>
-                  <span className="text-text-primary font-bold mono">R$12 (60%)</span>
+                  <span className="text-text-secondary">{t('driverLabel')}</span>
+                  <span className="text-text-primary font-bold mono">{t('driverAmount')}</span>
                 </div>
                 <div className="h-8 bg-bg-tertiary rounded-lg overflow-hidden">
                   <motion.div
@@ -98,9 +95,8 @@ export default function Problem() {
               <div className="flex items-center gap-4 text-text-tertiary text-sm">
                 <span>💸</span>
                 <p>
-                  Anualmente, um motorista que faz 200 corridas/mês<br />
-                  <strong className="text-accent-red">deixa R$19.200 no Uber</strong> que poderia
-                  receber como pagamento direto.
+                  {t('annualNote')}<br />
+                  <strong className="text-accent-red">{t('annualHighlight')}</strong> {t('annualEnd')}
                 </p>
               </div>
             </div>
@@ -110,3 +106,4 @@ export default function Problem() {
     </SectionWrapper>
   )
 }
+

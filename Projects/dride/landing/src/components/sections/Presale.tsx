@@ -8,8 +8,12 @@ import { Badge } from '@/components/ui/Badge'
 import { Button } from '@/components/ui/Button'
 import { usePresale } from '@/hooks/usePresale'
 import { PRESALE_CONFIG } from '@/lib/constants'
+import { useTranslations, useFormatter } from 'next-intl'
 
 export default function Presale() {
+  const t = useTranslations('Presale')
+  const format = useFormatter()
+  
   const {
     state,
     handleBuy,
@@ -38,15 +42,14 @@ export default function Presale() {
     : PRESALE_CONFIG.price
 
   const totalDRIDE = state.amountSOL * PRESALE_CONFIG.tokensPerSOL
-  const costSOL = totalDRIDE * currentPrice
-  const costBRL = costSOL * 5.5
+  const costUSD = totalDRIDE * currentPrice
 
   return (
     <SectionWrapper id="presale" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         <div className="text-center mb-16">
           <Badge variant="purple" animated className="mb-4">
-            🚀 PRESALE AO VIVO
+            🚀 {t('badge')}
           </Badge>
 
           <Card variant="glow" glowColor="purple" className="max-w-xl mx-auto mb-8 p-6">
@@ -55,7 +58,7 @@ export default function Presale() {
                 {progress}%
               </div>
               <div className="text-text-secondary text-sm">
-                {PRESALE_CONFIG.raised.toLocaleString('pt-BR')} / {PRESALE_CONFIG.hardCap.toLocaleString('pt-BR')} SOL
+                {format.number(PRESALE_CONFIG.raised)} / {format.number(PRESALE_CONFIG.hardCap)} SOL
               </div>
               <div className="h-4 bg-bg-tertiary/50 rounded-full overflow-hidden">
                 <motion.div
@@ -65,15 +68,12 @@ export default function Presale() {
                   transition={{ duration: 1 }}
                 />
               </div>
-              <div className="mt-4 text-xs text-text-tertiary">
-                R$: {PRESALE_CONFIG.raised.toLocaleString('pt-BR')} / R$ 1.000.000
-              </div>
             </div>
           </Card>
 
           <Card variant="glass" className="max-w-md mx-auto p-6">
             <div className="text-center">
-              <div className="text-text-tertiary text-sm mb-2">Time remaining</div>
+              <div className="text-text-tertiary text-sm mb-2">{t('timeRemaining')}</div>
               <div className="flex items-center justify-center gap-4 text-4xl font-bold mono">
                 {days < 10 ? `0${formatTime(days)}:` : formatTime(days)}
                 <span className="text-brand-purple">:</span>
@@ -89,20 +89,22 @@ export default function Presale() {
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-12 text-center">
           <div className="space-y-2">
-            <div className="text-text-tertiary text-sm">Current price</div>
+            <div className="text-text-tertiary text-sm">{t('currentPrice')}</div>
             <div className="text-3xl font-bold text-text-primary">
-              R$ {currentPrice.toFixed(3)}
+              {format.number(currentPrice, { style: 'currency', currency: 'USD', minimumFractionDigits: 3 })}
             </div>
-            <div className="text-xs text-accent-amber">next: R$ {(currentPrice * 1.5).toFixed(3)}</div>
+            <div className="text-xs text-accent-amber">
+              {t('nextPrice', { price: (currentPrice * 1.5).toFixed(3) })}
+            </div>
           </div>
 
           <div className="space-y-2">
-            <div className="text-text-tertiary text-sm">You will receive</div>
+            <div className="text-text-tertiary text-sm">{t('youWillReceive')}</div>
             <div className="text-3xl font-bold text-accent-green">
-              {totalDRIDE.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}
+              {format.number(totalDRIDE)}
             </div>
             <div className="text-xs text-accent-green">
-              $DRIDE (fee included)
+              {t('feeIncluded')}
             </div>
           </div>
         </div>
@@ -111,7 +113,7 @@ export default function Presale() {
           <div className="p-6 text-center">
             <div className="mb-6">
               <label className="block text-text-primary font-medium mb-2">
-                SOL Amount
+                {t('solAmount')}
               </label>
               <div className="flex items-center justify-center gap-4">
                 <Button
@@ -147,18 +149,18 @@ export default function Presale() {
 
             <div className="space-y-3 text-text-secondary text-sm">
               <div className="flex justify-between">
-                <span>Total SOL</span>
+                <span>{t('totalSol')}</span>
                 <span className="font-mono">
                   {state.amountSOL} x {PRESALE_CONFIG.tokensPerSOL} = {state.amountSOL * PRESALE_CONFIG.tokensPerSOL}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span>Price SOL</span>
-                <span>~R$ {currentPrice.toFixed(2)}</span>
+                <span>{t('priceSol')}</span>
+                <span>~ {format.number(currentPrice, { style: 'currency', currency: 'USD' })}</span>
               </div>
-              <div className="flex justify-between text-accent-green">
-                <span>Total cost</span>
-                <span className="font-mono">~R$ {costBRL.toFixed(2)}</span>
+              <div className="flex justify-between text-accent-green font-bold">
+                <span>{t('totalCost')}</span>
+                <span className="font-mono">~ {format.number(costUSD, { style: 'currency', currency: 'USD' })}</span>
               </div>
             </div>
           </div>
@@ -173,8 +175,8 @@ export default function Presale() {
             icon={<ArrowRight size={24} />}
           >
             {state.isConnected
-              ? `Buy ${totalDRIDE.toLocaleString('pt-BR')} $DRIDE`
-              : 'Connect Wallet'}
+              ? t('buyButton', { amount: format.number(totalDRIDE) })
+              : t('connectWallet')}
           </Button>
 
           {!state.isConnected && (
@@ -185,8 +187,7 @@ export default function Presale() {
             >
               <AlertTriangle size={16} className="text-accent-amber flex-shrink-0" />
               <p className="text-text-tertiary">
-                You need to connect your Solana wallet to participate in the presale.
-                The purchase will be made directly from your wallet.
+                {t('walletWarning')}
               </p>
             </motion.div>
           )}
@@ -194,15 +195,15 @@ export default function Presale() {
           <div className="flex flex-wrap justify-center gap-3 mt-6">
             <div className="flex items-center gap-2 px-3 py-1.5 bg-bg-tertiary/50 rounded-lg text-xs text-text-secondary">
               <Shield size={14} className="text-accent-green" />
-              <span>Audited escrow</span>
+              <span>{t('auditedEscrow')}</span>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 bg-bg-tertiary/50 rounded-lg text-xs text-text-secondary">
               <AlertTriangle size={14} className="text-accent-amber" />
-              <span>No intermediary</span>
+              <span>{t('noIntermediary')}</span>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 bg-bg-tertiary/50 rounded-lg text-xs text-text-secondary">
               <Shield size={14} className="text-brand-purple" />
-              <span>Open contract</span>
+              <span>{t('openContract')}</span>
             </div>
           </div>
       </Card>
@@ -215,13 +216,14 @@ export default function Presale() {
         className="mt-12 text-center"
       >
         <p className="text-text-tertiary text-sm">
-          Prefer MetaMask?{' '}
-          <span className="text-accent-green">ETH option</span>
+          {t('metamaskNote')}{' '}
+          <span className="text-accent-green">{t('ethOption')}</span>
           {' '}
-          <span className="text-text-secondary">will also be available.</span>
+          <span className="text-text-secondary">{t('willBeAvailable')}</span>
         </p>
       </motion.div>
     </div>
     </SectionWrapper>
   )
 }
+

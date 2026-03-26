@@ -59,6 +59,7 @@
     "feature1Title": "Escrow on-chain",
     "feature1Desc": "Dinheiro trancado no smart contract",
     "feature2Title": "Solana",
+    "feature2Desc": "Transações em < {time}s por R${cost}",
     "feature3Title": "Transparente",
     "feature3Desc": "Taxa de 10% fixa, visível na blockchain"
   },
@@ -101,11 +102,11 @@
     "supplyLabel": "Supply total:",
     "supplyValue": "1.000.000.000 $DRIDE",
     "allocation": {
-      "0": "300M tokens. Preço presale: $0.005. Unlock: 20% no TGE, 80% linear em 6 meses.",
-      "1": "250M tokens. Incentivos pra motoristas e passageiros. Desconto na taxa usando $DRIDE.",
-      "2": "200M tokens. 1 ano cliff, 4 anos vesting linear. Comprometimento de longo prazo.",
-      "3": "150M tokens. Locked em DEX (Raydium/Orca). Garante liquidez desde o dia 1.",
-      "4": "100M tokens. Controlado por multisig (Squads). Pra partnerships, grants, e emergências."
+      "0": { "label": "Presale & Public Sale", "desc": "300M tokens. Preço presale: $0.005. Unlock: 20% no TGE, 80% linear em 6 meses." },
+      "1": { "label": "Ecosystem & Rewards", "desc": "250M tokens. Incentivos pra motoristas e passageiros. Desconto na taxa usando $DRIDE." },
+      "2": { "label": "Team & Advisors", "desc": "200M tokens. 1 ano cliff, 4 anos vesting linear. Comprometimento de longo prazo." },
+      "3": { "label": "Liquidity Pool", "desc": "150M tokens. Locked em DEX (Raydium/Orca). Garante liquidez desde o dia 1." },
+      "4": { "label": "Treasury", "desc": "100M tokens. Controlado por multisig (Squads). Pra partnerships, grants, e emergências." }
     },
     "utilityTitle": "O que $DRIDE faz?",
     "utility1": "Pagar corrida com $DRIDE = {discount}% de desconto na taxa (10% → 5%)",

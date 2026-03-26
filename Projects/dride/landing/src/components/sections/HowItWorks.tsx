@@ -5,43 +5,46 @@ import { MapPin, Wallet, Car, CheckCircle } from 'lucide-react'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-
-const steps = [
-  {
-    number: '01',
-    icon: <MapPin size={32} className="text-brand-purple" />,
-    title: 'Pedir',
-    description: 'Escolha destino no mapa',
-  },
-  {
-    number: '02',
-    icon: <Wallet size={32} className="text-brand-purple" />,
-    title: 'Depositar',
-    description: 'SOL vai pro escrow',
-  },
-  {
-    number: '03',
-    icon: <Car size={32} className="text-brand-purple" />,
-    title: 'Corrida',
-    description: 'Tracking ao vivo no mapa',
-  },
-  {
-    number: '04',
-    icon: <CheckCircle size={32} className="text-accent-green" />,
-    title: 'Receber',
-    description: 'Escrow libera 90%→motorista',
-  },
-]
+import { useTranslations } from 'next-intl'
 
 export default function HowItWorks() {
+  const t = useTranslations('HowItWorks')
+
+  const steps = [
+    {
+      number: '01',
+      icon: <MapPin size={32} className="text-brand-purple" />,
+      title: t('step1Title'),
+      description: t('step1Desc'),
+    },
+    {
+      number: '02',
+      icon: <Wallet size={32} className="text-brand-purple" />,
+      title: t('step2Title'),
+      description: t('step2Desc'),
+    },
+    {
+      number: '03',
+      icon: <Car size={32} className="text-brand-purple" />,
+      title: t('step3Title'),
+      description: t('step3Desc'),
+    },
+    {
+      number: '04',
+      icon: <CheckCircle size={32} className="text-accent-green" />,
+      title: t('step4Title'),
+      description: t('step4Desc'),
+    },
+  ]
+
   return (
     <SectionWrapper id="how" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="mb-4">COMO FUNCIONA</Badge>
+          <Badge className="mb-4">{t('badge')}</Badge>
           <h2 className="text-4xl lg:text-[48px] font-bold">
-            4 passos. Zero burocracia.
+            {t('title')}
           </h2>
         </div>
 
@@ -113,3 +116,4 @@ export default function HowItWorks() {
     </SectionWrapper>
   )
 }
+

@@ -1,34 +1,44 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Calendar, CheckCircle2, Rocket, Clock } from 'lucide-react'
+import { Calendar, CheckCircle2, Rocket } from 'lucide-react'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { ROADMAP_ITEMS } from '@/lib/constants'
-
-const statusConfig = {
-  'upcoming': {
-    icon: <Calendar size={20} className="text-text-secondary" />,
-    label: 'Em breve',
-    color: 'text-text-tertiary',
-  },
-  'completed': {
-    icon: <CheckCircle2 size={20} className="text-accent-green" />,
-    label: 'Concluído',
-    color: 'text-accent-green',
-  },
-}
+import { useTranslations } from 'next-intl'
 
 export default function Roadmap() {
+  const t = useTranslations('Roadmap')
+  const phasesRaw = t.raw('phases')
+  
+  const statusConfig = {
+    'upcoming': {
+      icon: <Calendar size={20} className="text-text-secondary" />,
+      label: t('statusUpcoming'),
+      color: 'text-text-tertiary',
+    },
+    'completed': {
+      icon: <CheckCircle2 size={20} className="text-accent-green" />,
+      label: t('statusCompleted'),
+      color: 'text-accent-green',
+    },
+  }
+
+  const roadmapItems = ROADMAP_ITEMS.map((item, index) => ({
+    ...item,
+    title: phasesRaw[index.toString()].title,
+    items: phasesRaw[index.toString()].items,
+  }))
+
   return (
     <SectionWrapper id="roadmap" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="mb-4">ROADMAP</Badge>
+          <Badge className="mb-4">{t('badge')}</Badge>
           <h2 className="text-4xl lg:text-[48px] font-bold">
-            O futuro do dRide.
+            {t('title')}
           </h2>
         </div>
 
@@ -39,9 +49,9 @@ export default function Roadmap() {
 
           {/* Roadmap items */}
           <div className="space-y-8 lg:space-y-16 lg:pl-20">
-            {ROADMAP_ITEMS.map((item, index) => (
+            {roadmapItems.map((item, index) => (
               <motion.div
-                key={item.quarter}
+                key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -91,15 +101,10 @@ export default function Roadmap() {
                     </div>
 
                     <ul className="space-y-2">
-                      {item.items.map((listItem) => (
-                        <li key={listItem} className="flex items-start gap-2 text-sm text-text-secondary">
-                          <span className="text-accent-green mt-0.5">
-                            {listItem.startsWith('◻') || listItem.startsWith('✅') ? (
-                              <span>{listItem.slice(2)}</span>
-                            ) : (
-                              <span>{listItem}</span>
-                            )}
-                          </span>
+                      {item.items.map((listItem: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                          <span className="text-accent-green mt-0.5">•</span>
+                          <span>{listItem}</span>
                         </li>
                       ))}
                     </ul>
@@ -107,7 +112,7 @@ export default function Roadmap() {
                 </Card>
 
                 {/* Connecting line for desktop */}
-                {index < ROADMAP_ITEMS.length - 1 && (
+                {index < roadmapItems.length - 1 && (
                   <div className="hidden lg:block absolute right-1/2 w-0.5 h-full border-l-2 border-brand-purple/30 -translate-x-1/2" />
                 )}
               </motion.div>
@@ -118,3 +123,4 @@ export default function Roadmap() {
     </SectionWrapper>
   )
 }
+

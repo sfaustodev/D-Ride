@@ -1,6 +1,5 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowRight, Zap, Users, Clock } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
@@ -9,8 +8,11 @@ import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { GradientText } from '@/components/ui/GradientText'
 import { PRESALE_CONFIG, PROTOCOL } from '@/lib/constants'
 import { SolanaLogo } from '@/components/ui/SolanaLogo'
+import { useTranslations } from 'next-intl'
 
 export default function Hero() {
+  const t = useTranslations('Hero')
+  
   const scrollTo = (id: string) => {
     const element = document.querySelector(id)
     if (element) {
@@ -30,10 +32,10 @@ export default function Hero() {
             className="inline-flex items-center gap-2 mb-8"
           >
             <Badge variant="amber" animated>
-              🚀 Presale ao vivo
+              🚀 {t('presaleLive')}
             </Badge>
             <span className="text-text-secondary text-sm">
-              {Math.round((PRESALE_CONFIG.raised / PRESALE_CONFIG.hardCap) * 100)}% vendido
+              {Math.round((PRESALE_CONFIG.raised / PRESALE_CONFIG.hardCap) * 100)}% {t('sold')}
             </span>
           </motion.div>
 
@@ -45,11 +47,14 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <GradientText>
-              Corrida sem intermediário.
+              {t('headline1')}
             </GradientText>
             <br />
             <span className="text-text-primary">
-              Motorista fica com <span className="text-brand-purple">90%</span>.
+              {t.rich('headline2', {
+                percentage: 90,
+                purple: (chunks) => <span className="text-brand-purple">{chunks}</span>
+              })}
             </span>
           </motion.h1>
 
@@ -60,9 +65,9 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            O primeiro app de corrida descentralizado do Brasil.
+            {t('subheadline')}
             <br className="hidden md:inline" />
-            {' '}Pagamentos transparentes na Solana. Taxa fixa de 10%.
+            {' '}{t('subheadline2')}
           </motion.p>
 
           {/* CTAs */}
@@ -78,7 +83,7 @@ export default function Hero() {
               onClick={() => scrollTo('#presale')}
               className="shadow-lg shadow-brand-purple/30"
             >
-              Comprar $DRIDE
+              {t('ctaBuy')}
             </Button>
             <Button
               variant="outline"
@@ -86,7 +91,7 @@ export default function Hero() {
               onClick={() => scrollTo('#how')}
               icon={<ArrowRight size={20} />}
             >
-              Como funciona
+              {t('ctaHow')}
             </Button>
           </motion.div>
 
@@ -100,20 +105,20 @@ export default function Hero() {
             <StatCard
               icon={<Zap size={24} className="text-brand-purple" />}
               value={PROTOCOL.transactionCostSOL}
-              suffix=" custo/tx"
-              label={<span className="inline-flex items-center gap-1.5 justify-center"><SolanaLogo size={16} />Solana</span>}
+              suffix={t('statCostSuffix')}
+              label={<span className="inline-flex items-center gap-1.5 justify-center"><SolanaLogo size={16} />{t('statCostLabel')}</span>}
             />
             <StatCard
               icon={<Users size={24} className="text-accent-green" />}
               value={90}
               suffix="%"
-              label="pro motorista"
+              label={t('statDriverLabel')}
             />
             <StatCard
               icon={<Clock size={24} className="text-brand-purple-light" />}
               value={PROTOCOL.transactionTimeSeconds}
               suffix="s"
-              label={<span className="inline-flex items-center gap-1.5 justify-center">Solana tx <SolanaLogo size={16} /></span>}
+              label={<span className="inline-flex items-center gap-1.5 justify-center">{t('statTxLabel')} <SolanaLogo size={16} /></span>}
             />
           </motion.div>
         </div>
@@ -121,6 +126,7 @@ export default function Hero() {
     </section>
   )
 }
+
 
 function StatCard({
   icon,

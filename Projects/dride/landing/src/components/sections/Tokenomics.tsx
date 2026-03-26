@@ -1,26 +1,35 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { TOKEN_ALLOCATION } from '@/lib/constants'
+import { useTranslations } from 'next-intl'
 
 export default function Tokenomics() {
   const [hoveredSlice, setHoveredSlice] = useState<number | null>(null)
+  const t = useTranslations('Tokenomics')
+  const allocationRaw = t.raw('allocation')
+  
+  const allocations = TOKEN_ALLOCATION.map((item, index) => ({
+    ...item,
+    label: allocationRaw[index.toString()].label,
+    description: allocationRaw[index.toString()].desc
+  }))
 
   return (
     <SectionWrapper id="tokenomics" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <Badge className="mb-4">TOKENOMICS</Badge>
+          <Badge className="mb-4">{t('badge')}</Badge>
           <h2 className="text-4xl lg:text-[48px] font-bold mb-4">
-            Token $DRIDE — Governança + Utilidade
+            {t('title')}
           </h2>
           <p className="text-text-secondary text-lg">
-            Supply total: <span className="text-text-primary font-bold mono">1.000.000.000 $DRIDE</span>
+            {t('supplyLabel')} <span className="text-text-primary font-bold mono">{t('supplyValue')}</span>
           </p>
         </div>
 
@@ -47,8 +56,8 @@ export default function Tokenomics() {
                 </defs>
 
                 <g filter="url(#glow)">
-                  {TOKEN_ALLOCATION.map((item, index) => {
-                    const previousPercentage = TOKEN_ALLOCATION
+                  {allocations.map((item, index) => {
+                    const previousPercentage = allocations
                       .slice(0, index)
                       .reduce((sum, i) => sum + i.percentage, 0)
                     const circumference = 2 * Math.PI * 40
@@ -57,7 +66,7 @@ export default function Tokenomics() {
 
                     return (
                       <motion.circle
-                        key={item.label}
+                        key={index}
                         cx="50"
                         cy="50"
                         r="40"
@@ -93,9 +102,9 @@ export default function Tokenomics() {
 
             {/* Legend */}
             <div className="mt-8 grid grid-cols-2 gap-3 w-fit mx-auto">
-              {TOKEN_ALLOCATION.map((item, index) => (
+              {allocations.map((item, index) => (
                 <motion.div
-                  key={item.label}
+                  key={index}
                   className={`flex items-center gap-2 text-sm p-2 rounded-lg transition-colors ${
                     hoveredSlice === index ? 'bg-bg-tertiary' : ''
                   }`}
@@ -120,9 +129,9 @@ export default function Tokenomics() {
 
           {/* Right - Details List */}
           <div className="space-y-4">
-            {TOKEN_ALLOCATION.map((item, index) => (
+            {allocations.map((item, index) => (
               <motion.div
-                key={item.label}
+                key={index}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -164,31 +173,34 @@ export default function Tokenomics() {
         >
           <Card variant="glow" glowColor="purple" className="p-6">
             <h3 className="text-xl font-bold text-brand-purple mb-4">
-              O que $DRIDE faz?
+              {t('utilityTitle')}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <span className="text-accent-green mt-0.5">•</span>
                 <span className="text-text-secondary">
-                  Pagar corrida com $DRIDE = <strong className="text-accent-green">5% de desconto</strong> na taxa (10% → 5%)
+                  {t.rich('utility1', {
+                    discount: 5,
+                    strong: (chunks) => <strong className="text-accent-green">{chunks}</strong>
+                  })}
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent-green mt-0.5">•</span>
                 <span className="text-text-secondary">
-                  Staking: motoristas stakam pra ter prioridade no matching
+                  {t('utility2')}
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent-green mt-0.5">•</span>
                 <span className="text-text-secondary">
-                  Governance: votar em mudanças de taxa, novas features, novas cidades
+                  {t('utility3')}
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-accent-green mt-0.5">•</span>
                 <span className="text-text-secondary">
-                  Revenue share: holders recebem % da receita do protocolo (v1.0)
+                  {t('utility4')}
                 </span>
               </li>
             </ul>
@@ -198,3 +210,4 @@ export default function Tokenomics() {
     </SectionWrapper>
   )
 }
+

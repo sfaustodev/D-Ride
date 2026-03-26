@@ -1,31 +1,33 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Twitter, MessageCircle, Send, Github, Coffee } from 'lucide-react'
 import { SOCIAL_LINKS } from '@/lib/constants'
 import { SolanaLogo } from '@/components/ui/SolanaLogo'
-
-const footerLinks = {
-  produto: [
-    { name: 'Como funciona', href: '#how' },
-    { name: 'Tokenomics', href: '#tokenomics' },
-    { name: 'Roadmap', href: '#roadmap' },
-    { name: 'Whitepaper', href: '/docs/whitepaper.pdf' },
-  ],
-  comunidade: [
-    { name: 'Twitter/X', href: SOCIAL_LINKS.twitter },
-    { name: 'Discord', href: SOCIAL_LINKS.discord },
-    { name: 'Telegram', href: SOCIAL_LINKS.telegram },
-    { name: 'GitHub', href: SOCIAL_LINKS.github },
-  ],
-  legal: [
-    { name: 'Termos de uso', href: '#' },
-    { name: 'Política de privacidade', href: '#' },
-    { name: 'Disclaimer de investimento', href: '#' },
-  ],
-}
+import { useTranslations } from 'next-intl'
 
 export default function Footer() {
+  const t = useTranslations('Footer')
+
+  const footerLinks = {
+    produto: [
+      { name: t('howItWorks'), href: '#how' },
+      { name: t('tokenomics'), href: '#tokenomics' },
+      { name: t('roadmap'), href: '#roadmap' },
+      { name: t('whitepaper'), href: '/docs/whitepaper.pdf' },
+    ],
+    comunidade: [
+      { name: 'Twitter/X', href: SOCIAL_LINKS.twitter },
+      { name: 'Discord', href: SOCIAL_LINKS.discord },
+      { name: 'Telegram', href: SOCIAL_LINKS.telegram },
+      { name: 'GitHub', href: SOCIAL_LINKS.github },
+    ],
+    legal: [
+      { name: t('termsOfUse'), href: '#' },
+      { name: t('privacyPolicy'), href: '#' },
+      { name: t('investmentDisclaimer'), href: '#' },
+    ],
+  }
+
   return (
     <footer className="bg-bg-secondary border-t border-border">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12 py-16">
@@ -34,7 +36,7 @@ export default function Footer() {
           <div className="space-y-4">
             <h3 className="text-2xl font-extrabold text-brand-purple">dRide</h3>
             <p className="text-text-secondary text-sm">
-              Corrida sem intermediário.
+              {t('tagline')}
             </p>
             <p className="text-text-tertiary text-xs">
               © 2026 dRide Protocol
@@ -43,7 +45,7 @@ export default function Footer() {
 
           {/* Produto */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-4">Produto</h4>
+            <h4 className="text-text-primary font-semibold mb-4">{t('product')}</h4>
             <ul className="space-y-3">
               {footerLinks.produto.map((link) => (
                 <li key={link.name}>
@@ -60,7 +62,7 @@ export default function Footer() {
 
           {/* Comunidade */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-4">Comunidade</h4>
+            <h4 className="text-text-primary font-semibold mb-4">{t('community')}</h4>
             <ul className="space-y-3">
               {footerLinks.comunidade.map((link) => (
                 <li key={link.name}>
@@ -79,7 +81,7 @@ export default function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="text-text-primary font-semibold mb-4">Legal</h4>
+            <h4 className="text-text-primary font-semibold mb-4">{t('legal')}</h4>
             <ul className="space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.name}>
@@ -99,12 +101,12 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-tertiary text-sm flex items-center gap-2">
             <Coffee size={16} />
-            Built in Porto Seguro, BA
+            {t('builtIn')}
           </p>
 
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5 text-text-tertiary text-xs">
-              Built on <SolanaLogo size={18} />
+              {t('builtOn')} <SolanaLogo size={18} />
             </span>
             <a
               href={SOCIAL_LINKS.twitter}
@@ -144,14 +146,11 @@ export default function Footer() {
         {/* Legal Disclaimer */}
         <div className="mt-8 p-4 bg-bg-tertiary/50 rounded-lg text-xs text-text-secondary">
           <p className="leading-relaxed">
-            <strong className="text-text-tertiary">Disclaimer:</strong> $DRIDE é um token de utilidade para uso dentro do protocolo dRide.
-            A compra de $DRIDE não constitui investimento em valores mobiliários.
-            Não há garantia de retorno financeiro. O projeto está em fase de desenvolvimento
-            e está sujeito a riscos técnicos e regulatórios. Faça sua própria pesquisa (DYOR)
-            antes de participar. Este site não constitui conselho financeiro ou de investimento.
+            <strong className="text-text-tertiary">Disclaimer:</strong> {t('disclaimer')}
           </p>
         </div>
       </div>
     </footer>
   )
 }
+

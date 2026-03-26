@@ -2,22 +2,30 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Globe } from 'lucide-react'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { GradientText } from '@/components/ui/GradientText'
-
-const navLinks = [
-  { name: 'Como funciona', href: '#how' },
-  { name: 'Tokenomics', href: '#tokenomics' },
-  { name: 'Roadmap', href: '#roadmap' },
-  { name: 'FAQ', href: '#faq' },
-]
+import { useTranslations, useLocale } from 'next-intl'
+import { usePathname, useRouter } from '@/i18n/navigation'
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const { connected, publicKey } = useWallet()
+  const [isLangOpen, setIsLangOpen] = useState(false)
+  useWallet()
+  const t = useTranslations('Navbar')
+  const tLang = useTranslations('LanguageSwitcher')
+  const pathname = usePathname()
+  const router = useRouter()
+  const currentLocale = useLocale()
+
+  const navLinks = [
+    { name: t('howItWorks'), href: '#how' },
+    { name: t('tokenomics'), href: '#tokenomics' },
+    { name: t('roadmap'), href: '#roadmap' },
+    { name: t('faq'), href: '#faq' },
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +41,11 @@ export default function Navbar() {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const toggleLanguage = (locale: 'en' | 'pt') => {
+    router.replace(pathname, { locale })
+    setIsLangOpen(false)
   }
 
   return (
@@ -70,18 +83,59 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Desktop Wallet Button */}
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
+            {/* Language Switcher */}
+            <div className="relative">
+              <button
+                onClick={() => setIsLangOpen(!isLangOpen)}
+                className="p-2 text-text-secondary hover:text-text-primary transition-colors"
+              >
+                <Globe size={20} />
+              </button>
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute right-0 mt-2 py-2 w-32 bg-bg-secondary border border-border rounded-lg shadow-xl"
+                  >
+                    <button
+                      onClick={() => toggleLanguage('en')}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-bg-tertiary transition-colors ${currentLocale === 'en' ? 'text-brand-purple font-bold' : 'text-text-primary'}`}
+                    >
+                      {tLang('en')}
+                    </button>
+                    <button
+                      onClick={() => toggleLanguage('pt')}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-bg-tertiary transition-colors ${currentLocale === 'pt' ? 'text-brand-purple font-bold' : 'text-text-primary'}`}
+                    >
+                      {tLang('pt')}
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            {/* Wallet Button */}
             <WalletMultiButton className="!bg-brand-purple hover:!bg-brand-purple-light !text-white !font-medium !rounded-12 !px-6 !py-2.5 !transition-all" />
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-text-primary"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex md:hidden items-center gap-2">
+            <button
+              onClick={() => setIsLangOpen(!isLangOpen)}
+              className="p-2 text-text-secondary"
+            >
+              <Globe size={20} />
+            </button>
+            <button
+              className="p-2 text-text-primary"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 
@@ -116,6 +170,29 @@ export default function Navbar() {
               <WalletMultiButton className="!bg-brand-purple !text-white !font-medium !rounded-12 !px-8 !py-4 !text-lg mt-4" />
             </motion.div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Language Switcher overlay */}
+      <AnimatePresence>
+        {isLangOpen && (
+          <div className="fixed inset-0 z-50 md:hidden flex items-center justify-center p-6 bg-bg-primary/95 backdrop-blur-xl">
+             <div className="flex flex-col gap-6 text-center">
+                <button 
+                  onClick={() => toggleLanguage('en')} 
+                  className={`text-2xl font-bold ${currentLocale === 'en' ? 'text-brand-purple' : 'text-text-primary'}`}
+                >
+                  {tLang('en')}
+                </button>
+                <button 
+                  onClick={() => toggleLanguage('pt')} 
+                  className={`text-2xl font-bold ${currentLocale === 'pt' ? 'text-brand-purple' : 'text-text-primary'}`}
+                >
+                  {tLang('pt')}
+                </button>
+                <button onClick={() => setIsLangOpen(false)} className="mt-8 text-text-tertiary">Close</button>
+             </div>
+          </div>
         )}
       </AnimatePresence>
     </>

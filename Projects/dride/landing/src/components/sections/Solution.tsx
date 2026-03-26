@@ -3,12 +3,14 @@
 import { motion } from 'framer-motion'
 import { Lock, Zap, Eye } from 'lucide-react'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
-import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { PROTOCOL } from '@/lib/constants'
 import { SolanaLogo } from '@/components/ui/SolanaLogo'
+import { useTranslations } from 'next-intl'
 
 export default function Solution() {
+  const t = useTranslations('Solution')
+
   return (
     <SectionWrapper id="solution" className="py-32">
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
@@ -21,14 +23,14 @@ export default function Solution() {
             transition={{ duration: 0.6 }}
             className="space-y-6"
           >
-            <h3 className="text-text-secondary text-lg">No dRide, mesma corrida de R$20...</h3>
+            <h3 className="text-text-secondary text-lg">{t('barTitle')}</h3>
 
             <div className="space-y-4">
               {/* Protocol fee bar */}
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-brand-purple font-medium">Protocolo</span>
-                  <span className="text-brand-purple font-bold mono">R$2 (10%)</span>
+                  <span className="text-brand-purple font-medium">{t('protocolLabel')}</span>
+                  <span className="text-brand-purple font-bold mono">{t('protocolAmount')}</span>
                 </div>
                 <div className="h-8 bg-bg-tertiary rounded-lg overflow-hidden">
                   <motion.div
@@ -44,8 +46,8 @@ export default function Solution() {
               {/* Driver earnings bar */}
               <div>
                 <div className="flex justify-between text-sm mb-2">
-                  <span className="text-accent-green font-medium">Motorista</span>
-                  <span className="text-accent-green font-bold mono">R$18 (90%)</span>
+                  <span className="text-accent-green font-medium">{t('driverLabel')}</span>
+                  <span className="text-accent-green font-bold mono">{t('driverAmount')}</span>
                 </div>
                 <div className="h-8 bg-bg-tertiary rounded-lg overflow-hidden">
                   <motion.div
@@ -68,7 +70,7 @@ export default function Solution() {
               transition={{ duration: 0.5, delay: 1 }}
             >
               <span className="text-accent-green font-bold text-lg">
-                +R$6 a mais pro motorista por corrida
+                {t('highlight')}
               </span>
             </motion.div>
           </motion.div>
@@ -80,38 +82,41 @@ export default function Solution() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Badge variant="green" className="mb-4">A SOLUÇÃO</Badge>
+            <Badge variant="green" className="mb-4">{t('badge')}</Badge>
             <h2 className="text-4xl lg:text-[48px] font-bold mb-6 leading-tight">
-              Smart contract.<br />
-              Sem empresa no meio.
+              {t('title1')}<br />
+              {t('title2')}
             </h2>
             <p className="text-text-secondary text-lg mb-8 leading-relaxed">
-              O dRide usa um contrato inteligente na Solana como escrow.
-              O passageiro deposita, o motorista completa a corrida, o código
-              libera automaticamente: <strong className="text-accent-green">90%</strong> pro motorista,
-              <strong className="text-brand-purple">10%</strong> pro protocolo.
+              {t.rich('description', {
+                driverPct: PROTOCOL.driverPercentage,
+                protocolPct: PROTOCOL.feePercentage,
+                strongDriver: (chunks) => <strong className="text-accent-green">{chunks}</strong>,
+                strongProtocol: (chunks) => <strong className="text-brand-purple">{chunks}</strong>
+              })}
               <br /><br />
-              Sem escritórios. Sem milhares de funcionários.
-              Sem algoritmo secreto decidindo quanto você ganha.
-              Código aberto. Auditável por qualquer pessoa.
+              {t('description2')}
             </p>
 
             {/* Feature Cards */}
             <div className="space-y-4">
               <FeatureCard
                 icon={<Lock size={20} className="text-brand-purple" />}
-                title="Escrow on-chain"
-                description="Dinheiro trancado no smart contract"
+                title={t('feature1Title')}
+                description={t('feature1Desc')}
               />
               <FeatureCard
                 icon={<Zap size={20} className="text-accent-green" />}
-                title={<span className="inline-flex items-center gap-2"><SolanaLogo size={18} />Solana</span>}
-                description={`Transactions in < ${PROTOCOL.transactionTimeSeconds}s for $${PROTOCOL.transactionCostSOL.toFixed(2)}`}
+                title={<span className="inline-flex items-center gap-2"><SolanaLogo size={18} />{t('feature2Title')}</span>}
+                description={t('feature2Desc', {
+                  time: PROTOCOL.transactionTimeSeconds,
+                  cost: PROTOCOL.transactionCostSOL.toFixed(2)
+                })}
               />
               <FeatureCard
                 icon={<Eye size={20} className="text-brand-purple-light" />}
-                title="Transparente"
-                description="Taxa de 10% fixa, visível na blockchain"
+                title={t('feature3Title')}
+                description={t('feature3Desc')}
               />
             </div>
           </motion.div>
@@ -120,6 +125,7 @@ export default function Solution() {
     </SectionWrapper>
   )
 }
+
 
 function FeatureCard({
   icon,

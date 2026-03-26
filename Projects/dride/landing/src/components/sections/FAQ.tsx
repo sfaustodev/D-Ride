@@ -6,10 +6,13 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { FAQ_ITEMS } from '@/lib/constants'
+import { useTranslations } from 'next-intl'
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const t = useTranslations('FAQ')
+  const faqRaw = t.raw('items')
+  const faqItems = Object.keys(faqRaw).map(key => faqRaw[key])
 
   const toggleItem = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
@@ -20,15 +23,15 @@ export default function FAQ() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
-          <Badge className="mb-4">FAQ</Badge>
+          <Badge className="mb-4">{t('badge')}</Badge>
           <h2 className="text-4xl lg:text-[48px] font-bold">
-            Perguntas frequentes.
+            {t('title')}
           </h2>
         </div>
 
         {/* FAQ Items */}
         <div className="max-w-3xl mx-auto space-y-4">
-          {FAQ_ITEMS.map((item, index) => (
+          {faqItems.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -82,7 +85,7 @@ export default function FAQ() {
           className="mt-12 text-center"
         >
           <p className="text-text-secondary text-lg mb-4">
-            Ainda tem dúvidas?
+            {t('stillQuestions')}
           </p>
           <a
             href="https://discord.gg/dride"
@@ -90,10 +93,11 @@ export default function FAQ() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-brand-purple hover:bg-brand-purple-light text-white font-medium rounded-12 transition-colors"
           >
-            Entre na comunidade
+            {t('joinCommunity')}
           </a>
         </motion.div>
       </div>
     </SectionWrapper>
   )
 }
+
