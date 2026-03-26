@@ -46,7 +46,7 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
       >
-        <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24 h-16 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
           <button
             onClick={() => scrollTo('#top')}
