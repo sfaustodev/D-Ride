@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { Twitter, MessageCircle, Send, Github, Coffee } from 'lucide-react'
 import { SOCIAL_LINKS } from '@/lib/constants'
+import { SolanaLogo } from '@/components/ui/SolanaLogo'
 
 const footerLinks = {
   produto: [
@@ -98,10 +99,13 @@ export default function Footer() {
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-text-tertiary text-sm flex items-center gap-2">
             <Coffee size={16} />
-            Construído em Porto Seguro, BA
+            Built in Porto Seguro, BA
           </p>
 
           <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-text-tertiary text-xs">
+              Built on <SolanaLogo size={18} />
+            </span>
             <a
               href={SOCIAL_LINKS.twitter}
               target="_blank"
