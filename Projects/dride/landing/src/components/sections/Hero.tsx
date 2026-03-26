@@ -19,7 +19,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-16 pb-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24 w-full">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12 w-full">
         <div className="text-center">
           {/* Badge */}
           <motion.div
