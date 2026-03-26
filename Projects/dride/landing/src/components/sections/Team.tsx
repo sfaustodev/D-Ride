@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
-import { Github, Twitter } from 'lucide-react'
+import { Github, Linkedin, Twitter } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 export default function Team() {
@@ -12,10 +12,10 @@ export default function Team() {
 
   const teamMembers = [
     {
-      name: 'dRide Protocol',
-      role: t('founder'),
-      twitter: 'dride_app',
-      github: 'dride-protocol',
+      name: 'Juan Fausto',
+      role: t('founderDev'),
+      linkedin: 'juan-fausto-07b311193',
+      github: 'sfaustodev',
     },
     {
       name: 'CTO',
@@ -63,6 +63,16 @@ export default function Team() {
 
                   {/* Social Links */}
                   <div className="flex items-center justify-center gap-3">
+                    {member.linkedin && (
+                      <a
+                        href={`https://www.linkedin.com/in/${member.linkedin}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-secondary hover:text-brand-purple transition-colors"
+                      >
+                        <Linkedin size={20} />
+                      </a>
+                    )}
                     {member.twitter && (
                       <a
                         href={`https://twitter.com/${member.twitter}`}
