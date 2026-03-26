@@ -36,7 +36,7 @@ const steps = [
 export default function HowItWorks() {
   return (
     <SectionWrapper id="how" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-16">
           <Badge className="mb-4">COMO FUNCIONA</Badge>
