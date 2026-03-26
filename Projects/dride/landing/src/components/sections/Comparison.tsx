@@ -9,7 +9,7 @@ import { COMPARISON_METRICS } from '@/lib/constants'
 export default function Comparison() {
   return (
     <SectionWrapper id="comparison" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12">
           <Badge variant="amber" className="mb-4">COMPARAÇÃO</Badge>
