@@ -12,7 +12,7 @@ export default function Tokenomics() {
 
   return (
     <SectionWrapper id="tokenomics" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         {/* Header */}
         <div className="text-center mb-12">
           <Badge className="mb-4">TOKENOMICS</Badge>
