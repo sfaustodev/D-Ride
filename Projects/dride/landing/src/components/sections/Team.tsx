@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl'
 export default function Team() {
   const t = useTranslations('Team')
 
-  const teamMembers = [
+  const teamMembers: { name: string; role: string; linkedin?: string; twitter?: string; github?: string }[] = [
     {
       name: 'Juan Fausto',
       role: t('founderDev'),
