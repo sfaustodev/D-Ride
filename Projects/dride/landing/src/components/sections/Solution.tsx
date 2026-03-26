@@ -10,7 +10,7 @@ import { PROTOCOL } from '@/lib/constants'
 export default function Solution() {
   return (
     <SectionWrapper id="solution" className="py-32">
-      <div className="max-w-[1200px] mx-auto px-6 md:px-10 lg:px-24">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 lg:px-12">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left - Animated Bar Visual */}
           <motion.div
