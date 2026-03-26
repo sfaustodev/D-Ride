@@ -6,6 +6,7 @@ import { SectionWrapper } from '@/components/ui/SectionWrapper'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { PROTOCOL } from '@/lib/constants'
+import { SolanaLogo } from '@/components/ui/SolanaLogo'
 
 export default function Solution() {
   return (
@@ -104,8 +105,8 @@ export default function Solution() {
               />
               <FeatureCard
                 icon={<Zap size={20} className="text-accent-green" />}
-                title="Solana"
-                description={`Transações em < ${PROTOCOL.transactionTimeSeconds} segundo por R${PROTOCOL.transactionCostSOL.toFixed(2)}`}
+                title={<span className="inline-flex items-center gap-2"><SolanaLogo size={18} />Solana</span>}
+                description={`Transactions in < ${PROTOCOL.transactionTimeSeconds}s for $${PROTOCOL.transactionCostSOL.toFixed(2)}`}
               />
               <FeatureCard
                 icon={<Eye size={20} className="text-brand-purple-light" />}
@@ -126,7 +127,7 @@ function FeatureCard({
   description,
 }: {
   icon: React.ReactNode
-  title: string
+  title: React.ReactNode
   description: string
 }) {
   return (
