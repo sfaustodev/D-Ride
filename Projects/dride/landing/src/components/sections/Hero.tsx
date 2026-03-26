@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/Badge'
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter'
 import { GradientText } from '@/components/ui/GradientText'
 import { PRESALE_CONFIG, PROTOCOL } from '@/lib/constants'
+import { SolanaLogo } from '@/components/ui/SolanaLogo'
 
 export default function Hero() {
   const scrollTo = (id: string) => {
@@ -100,7 +101,7 @@ export default function Hero() {
               icon={<Zap size={24} className="text-brand-purple" />}
               value={PROTOCOL.transactionCostSOL}
               suffix=" custo/tx"
-              label="Solana"
+              label={<span className="inline-flex items-center gap-1.5 justify-center"><SolanaLogo size={16} />Solana</span>}
             />
             <StatCard
               icon={<Users size={24} className="text-accent-green" />}
@@ -112,7 +113,7 @@ export default function Hero() {
               icon={<Clock size={24} className="text-brand-purple-light" />}
               value={PROTOCOL.transactionTimeSeconds}
               suffix="s"
-              label="transação Solana"
+              label={<span className="inline-flex items-center gap-1.5 justify-center">Solana tx <SolanaLogo size={16} /></span>}
             />
           </motion.div>
         </div>
@@ -130,7 +131,7 @@ function StatCard({
   icon: React.ReactNode
   value: number
   suffix: string
-  label: string
+  label: React.ReactNode
 }) {
   return (
     <motion.div
