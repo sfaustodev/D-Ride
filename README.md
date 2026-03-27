@@ -155,7 +155,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 - LinkedIn: [linkedin.com/in/juan-fausto-07b311193](https://www.linkedin.com/in/juan-fausto-07b311193/)
 - GitHub: [github.com/sfaustodev](https://github.com/sfaustodev)
-- Email: [team@dride.app](mailto:team@dride.app)
+- Email: [sfaustodev@gmail.com](mailto:sfaustodev@gmail.com)
 
 ---
 
