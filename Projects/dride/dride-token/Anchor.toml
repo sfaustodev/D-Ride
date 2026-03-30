@@ -1,0 +1,24 @@
+[toolchain]
+
+[features]
+seeds = false
+skip-lint = false
+
+[programs.localnet]
+dride_token = "DRideToken11111111111111111111111111"
+
+[programs.devnet]
+dride_token = "DRideToken11111111111111111111111111"
+
+[programs.mainnet]
+dride_token = "DRideToken11111111111111111111111111"
+
+[registry]
+https://api.apr.dev
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.test.json -t 1000000 tests/**/*.ts"
