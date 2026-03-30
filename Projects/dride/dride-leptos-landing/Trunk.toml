@@ -1,0 +1,23 @@
+[build]
+target = "index.html"
+dist = "dist"
+public_url = "/"
+
+[watch]
+watch = ["src", "assets"]
+
+[clean]
+dist = "dist"
+
+[serve]
+address = "127.0.0.1"
+port = 3000
+open = false
+
+[tools]
+wasm-bindgen = "0.2.92"
+wasm-opt = "-Oz"
+
+[tools.wasm-opt]
+# For production builds, optimize for size
+wasm-opt = ["-Oz", "--enable-mutable-globals"]
